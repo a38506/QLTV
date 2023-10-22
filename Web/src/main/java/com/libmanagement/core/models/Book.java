@@ -1,50 +1,31 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
+package com.libmanagement.core.models;
 public class Book {
-    private String IDBook;
-    private String nameBook;
+    private String ID_Book;
+    private String Name_Book;
+    private String _Author;
+    private String _Major;
 
-    public void setBook(String IDBook, String nameBook) {
-    this.IDBook = IDBook;
-    this.nameBook = nameBook;
+    public Book(String IDBook, String nameBook, String author, String major) {
+        this.ID_Book = IDBook;
+        this.Name_Book = nameBook;
+        this._Author = author;
+        this._Major = major;
     }
 
-    public String getIDBook() {
-        return IDBook;
+    public String getID_Book() {
+        return ID_Book;
     }
 
-    public String getNameBook() {
-        return nameBook;
+    public String getName_Book() {
+        return Name_Book;
     }
 
-    public static void main(String[] args) throws IOException {
-    String csvFile1 = "book.csv";
-    String line;
-    String csvSplitBy = ",";
+    public String get_Author() {
+        return _Author;
+    }
+
+    public String get_Major() {
+        return _Major;
+    }
+}
     
-    List<Book> books = new ArrayList<>();
-
-    BufferedReader br = new BufferedReader(new FileReader(csvFile1));
-    while ((line = br.readLine()) != null) {
-        String[] bookData = line.split(csvSplitBy);
-
-        if (bookData.length >= 2) {
-            String IDBook = bookData[0].trim();
-            String nameBook = bookData[1].trim();
-
-            Book book = new Book();
-            book.setBook(IDBook, nameBook);
-            books.add(book);
-        }
-    }
-    br.close();
-
-    for (Book book : books) {
-        System.out.println("ID: " + book.getIDBook() + ", Name: " + book.getNameBook());
-    }  
-}
-}

@@ -1,3 +1,4 @@
+package com.libmanagement.core.models;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
