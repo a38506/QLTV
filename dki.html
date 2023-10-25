@@ -21,6 +21,7 @@
     </style>
 </head>
 <body>
+    <script></script>
     <h1>Đăng ký</h1>
     <table>
         <tr>
@@ -35,10 +36,9 @@
             <th><label for="password.2">Nhập lại mật khẩu:</label></th>
             <td><input type="password.2" id="password.2" name="password.2" required></td>
         </tr>
-        <tr>
-            <td colspan="2" style="text-align: center;"><button type="submit">Đăng ký</button></td>
-        </tr>
+
     </table>
+    <button class="button" onclick="Trang_chủ()">Đăng kí</button>
 
     <h1>Đăng nhập</h1>
     <table>
@@ -50,9 +50,13 @@
             <th><label for="login-password">Mật khẩu:</label></th>
             <td><input type="password" id="login-password" name="login-password" required></td>
         </tr>
-        <tr>
-            <td colspan="2" style="text-align: center;"><button type="submit">Đăng nhập</button></td>
-        </tr>
     </table>
+    <button class="button" onclick="Trang_chủ()">Đăng nhập</button>
 </body>
+
+<script>
+    function Trang_chủ(){
+        window.location.href = "Trang_chủ.html";
+    }
+</script>
 </html>

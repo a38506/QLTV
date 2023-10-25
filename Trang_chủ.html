@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quản lý thư viện</title>      
+</head>
+<style>
+    body {
+        padding: 8px;
+        text-align: center;
+    }
+    .container{
+        padding: 8px;
+        text-align: left;
+    }
+    table {
+        width: 100%;
+        margin-top: 20px;
+        text-align: left;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+    th {
+        background: #333;
+        color: #fff;
+    }
+    .tab {
+        padding: 8px;
+        background: #34a3e4;
+        color: #fff;
+    }     
+</style>
+<body>
+    <header>
+        <h1>Quản lý thư viện</h1>
+    </header>
+    <div class="container">
+        <a class="tab" onclick="showBooks()">Quản lý sách</a>
+        <a class="tab" onclick="showStudents()">Quản lý người đọc</a>
+        <a class="tab" onclick="showBorrowReturn()">Mượn/Trả sách</a>
+
+        <!--quản lí sách -->
+        <div class="content" id="bookContent" style="display: none;">
+            <h2>Quản lý sách</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã Sách</th>
+                        <th>Tên Sách</th>
+                        <th>Tác Giả</th>
+                        <th>Chuyên ngành</th>
+                        <th>Số Lượng</th>
+                    </tr>
+                </thead>
+            </table>
+            <button class="button" onclick="addBook()">Thêm sách</button>
+        </div>
+
+        <!--quản lí người đọc -->
+        <div class="content" id="studentContent" style="display: none;">
+            <h2>Quản lý người đọc</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã Người Đọc</th>
+                        <th>Tên Người Đọc</th>
+                        <th>Lớp</th>
+                        <th>Chuyên ngành</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        
+        <!--mượn trả sách -->
+        <div class="content" id="borrowReturnContent" style="display: none;">
+            <h2>Mượn/Trả sách</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã Sách</th>
+                        <th>Tên Sách</th>
+                        <th>Mã Người Đọc</th>
+                        <th>Tên Người Đọc</th>
+                        <th>Trạng thái</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+
+    <script>
+        function showBooks() {
+            var bookContent = document.getElementById("bookContent");
+            bookContent.style.display = "block";
+            studentContent.style.display = "none"; 
+            borrowReturnContent.style.display = "none";
+        }
+
+        function showStudents() {
+            var studentContent = document.getElementById("studentContent");
+            studentContent.style.display = "block";
+            bookContent.style.display = "none";
+            borrowReturnContent.style.display = "none";
+        }
+
+        function showBorrowReturn() {
+            var borrowReturnContent = document.getElementById("borrowReturnContent");
+            borrowReturnContent.style.display = "block"; 
+            bookContent.style.display = "none";
+            studentContent.style.display = "none";
+        }
+
+        function addBook() {
+            window.location.href = "add_book.html";
+        }
+    </script>
+</body>
+</html>
