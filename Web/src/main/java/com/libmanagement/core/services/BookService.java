@@ -1,51 +1,65 @@
 package com.libmanagement.core.services;
 
-import java.util.ArrayList;
+import java.text.MessageFormat;
 import java.util.List;
-import java.util.UUID;
+
 import com.libmanagement.core.models.Book;
 import com.libmanagement.db.DataStore;
+import com.libmanagement.utility.Utils;
 
 public class BookService {
 
-    public void addBook(String nameBook, String author, String major) {
-        String IDBook = generateID(); 
-        Book book = new Book(IDBook, nameBook, author, major);
-        DataStore.books.add(book);
-    }
-
-    public void removeBook(String IDBook) {
-        DataStore.books.removeIf(book -> book.getID_Book().equals(IDBook));
-    }
-
-    public List<Book> searchBooksByID(String ID) {
-        List<Book> result = new ArrayList<>();
-        for (Book book : DataStore.books) {
-            if (book.getID_Book().equalsIgnoreCase(ID)) {
-                result.add(book);
-            }
+    public void add(Book bookToAdd){
+        if (Utils.isNullOrEmpty(bookToAdd.ID)){
+            throw new RuntimeException("Id Should Not Be Empty.");
         }
-        return result;
+
+        if (Utils.isNullOrEmpty(bookToAdd.Name)){
+            throw new RuntimeException("Name Should Not Be Empty.");
+        }
+
+        Book res = getById(bookToAdd.ID);
+        if (res != null){
+            throw new RuntimeException(MessageFormat.format ("The book with Id {0} has already existed.",bookToAdd.ID));
+        }
+        DataStore.books.add(bookToAdd);    
     }
 
-    public List<Book> getAllBooks() {
+
+    public void remove(String IDBook) {
+        DataStore.books.removeIf(book -> book.ID.equals(IDBook));
+    }
+
+
+    public  Book getById(String ID) {
+        //res                                      lamda expression                               
+        Book res = DataStore.books.stream().filter(book -> book.ID.equals(ID)).findFirst().orElse(null);
+        return  res;
+    }
+
+
+    public List<Book> getAll() {
         return DataStore.books;
     }
 
-    public void updateBook(String IDBook, String nameBook, String author, String major) {
-        for (Book book : DataStore.books) {
-            if (book.getID_Book().equals(IDBook)) {
-                book.setName_Book(nameBook);
-                book.set_Author(author);
-                book.set_Major(major);
-                return; 
-            }
+    
+    public void update(Book bookToUpdate) {
+        Book res = getById(bookToUpdate.ID);
+        if (res == null){
+            throw new RuntimeException(MessageFormat.format ("Book With Id is {0} Not Found",bookToUpdate.ID));
         }
-        throw new RuntimeException("Book with ID " + IDBook + " not found for update");
-    }
 
-    private String generateID() {
-        return UUID.randomUUID().toString();
+        res.Name = bookToUpdate.Name;
+        res.Author =bookToUpdate.Author;
+        res.Major = bookToUpdate.Major;
+        return; 
+             
     }
 }
+
+        
+        
+
+
+
 

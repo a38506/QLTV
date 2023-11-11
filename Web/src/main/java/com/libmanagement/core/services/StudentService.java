@@ -1,51 +1,56 @@
 package com.libmanagement.core.services;
 
-import java.util.ArrayList;
+import java.text.MessageFormat;
 import java.util.List;
-import java.util.UUID;
 
 import com.libmanagement.core.models.Student;
 import com.libmanagement.db.DataStore;
+import com.libmanagement.utility.Utils;
 
 public class StudentService {
 
-    public void addStudent(String nameStudent, String majorStudent, String classStudent) {
-        String IDStudent = generateID(); 
-        Student student = new Student(IDStudent, nameStudent, majorStudent, classStudent);
-        DataStore.students.add(student);
-    }
-
-    public void removeStudent(String IDStudent) {
-        DataStore.students.removeIf(student -> student.getID_Student().equals(IDStudent));
-    }
-
-    public List<Student> searchStudentsByID(String ID) {
-        List<Student> result = new ArrayList<>();
-        for (Student student : DataStore.students) {
-            if (student.getID_Student().equalsIgnoreCase(ID)) {
-                result.add(student);
-            }
+    public void add(Student studentToAdd) {
+        if (Utils.isNullOrEmpty(studentToAdd.ID)){
+            throw new RuntimeException("Id Should Not Be Empty.");
         }
-        return result;
+
+        if (Utils.isNullOrEmpty(studentToAdd.Name)){
+            throw new RuntimeException("Name Should Not Be Empty.");
+        }
+
+        Student res = getById(studentToAdd.ID);
+        if (res != null){
+            throw new RuntimeException(MessageFormat.format ("The stuent with Id {0} has already existed.",studentToAdd.ID));
+        }
+        DataStore.students.add(studentToAdd);
     }
 
-    public List<Student> getAllStudents() {
+    
+    public void remove(String ID) {
+        DataStore.students.removeIf(student -> student.ID.equals(ID));
+    }
+
+
+    public  Student getById(String ID) {                                                                  
+        Student res = DataStore.students.stream().filter(student -> student.ID.equals(ID)).findFirst().orElse(null);
+        return  res;
+    }
+
+
+    public List<Student> getAll() {
         return DataStore.students;
     }
 
-    public void updateStudent(String IDStudent, String nameStudent, String majorStudent, String classStudent) {
-        for (Student student : DataStore.students) {
-            if (student.getID_Student().equals(IDStudent)) {
-                student.setName_Student(nameStudent);
-                student.setMajor_Student(majorStudent);
-                student.setClass_Student(classStudent);
-                return; 
-            }
-        }
-        throw new RuntimeException("Student with ID " + IDStudent + " not found for update");
-    }
 
-    private String generateID() {
-        return UUID.randomUUID().toString();
+    public void update(Student studentToUpdate) {
+        Student res = getById(studentToUpdate.ID);
+        if (res == null){
+            throw new RuntimeException(MessageFormat.format ("Student With Id is {0} Not Found",studentToUpdate.ID));
+        }
+
+        res.Name = studentToUpdate.Name;
+        res.Clan = studentToUpdate.Clan;
+        res.Major = studentToUpdate.Major;
+        return;         
     }
 }

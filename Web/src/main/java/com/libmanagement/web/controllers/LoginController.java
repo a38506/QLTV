@@ -14,8 +14,8 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseEntity<HttpStatus> login (@RequestBody Student form) {
 
-        System.out.println("User name: " + form.getUsername());
-        System.out.println("Password: " + form.getPassword());
+        System.out.println("User name: " + form.username);
+        System.out.println("Password: " + form.password);
         return ResponseEntity.ok(HttpStatus.OK);
 
 

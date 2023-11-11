@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/book")
@@ -28,34 +27,31 @@ public class BookController {
 
     @GetMapping()
     public List<Book> getAllBooks() {
-        return _bookService.getAllBooks();
+        return _bookService.getAll();
     }
 
     @PostMapping()
     public void addNewBook(Book book) {
-        _bookService.addBook(book.getName_Book(), book.get_Author(), book.get_Major());
+        _bookService.add(book);
     }
 
     @DeleteMapping()
-    public void deleteBook(Book book){
-        _bookService.removeBook(book.getID_Book());
+    public void removeBook(Book book){
+        _bookService.remove(book.ID);
     }
 
     @PutMapping("/{bookId}")
-    public void updateBook(@PathVariable String bookId, @RequestBody Book updatedBook) {
-        Optional<Book> existingBook = _bookService.searchBooksByID(bookId).stream().findFirst();
+    public void update(@PathVariable String bookId, @RequestBody Book bookToUpdate) {
+        Book res = _bookService.getById(bookId);
+        if (res == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Book Not Found");
+ //           throw new RuntimeException(MessageFormat.format ("Book With Id is {0} Not Found",bookToUpdate.ID));
+        }
 
-        if (existingBook== null) {
-            throw new ResponseStatusException(
-                HttpStatus.NOT_FOUND, "Book Not Found");
-        } 
-        else {
-            Book bookToUpdate = existingBook.get();
-            bookToUpdate.setName_Book(updatedBook.getName_Book());
-            bookToUpdate.set_Author(updatedBook.get_Author());
-            bookToUpdate.set_Major(updatedBook.get_Major());
-            
-            _bookService.updateBook(bookId,bookToUpdate.getName_Book(),  bookToUpdate.get_Author(),bookToUpdate.get_Major());
-        }    
+        res.Name = bookToUpdate.Name;
+        res.Author =bookToUpdate.Author;
+        res.Major = bookToUpdate.Major;
+        return; 
+
     }
 }

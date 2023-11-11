@@ -3,8 +3,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.libmanagement.core.models.Book;
-import com.libmanagement.core.models.Management;
+import com.libmanagement.core.models.BookTransaction;
 import com.libmanagement.core.models.Student;
+import com.libmanagement.utility.Utils;
 
 public class DataStore{
     public static List<Student> students =  Arrays.asList (
@@ -23,10 +24,10 @@ public class DataStore{
         new Book("IS111", "Mang may tinh", "Hon", "CNTT")
     );
 
-    public static List<Management> managements = Arrays.asList(
-        new Management("CS110","Giai tich 1" , "A1002", "Nguyen Van A"),
-        new Management("CS111","Giai tich 2", "A1004", "Nguyen Van C"),
-        new Management("MA110","Kien truc may tinh", "A1003", "Nguyen Van B")
+    public static List<BookTransaction> bookTransactions = Arrays.asList(
+        new BookTransaction(Utils.generateID() ,"CS110" , "A1002"),
+        new BookTransaction(Utils.generateID(),"CS111", "A1004"),
+        new BookTransaction(Utils.generateID(),"MA110", "A1003")
     );
 
 }

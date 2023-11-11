@@ -1,45 +1,16 @@
 package com.libmanagement.core.models;
 
-
 public class Book {
-    private String ID_Book;
-    private String Name_Book;
-    private String _Author;
-    private String _Major;
+    public String ID;
+    public String Name;
+    public String Author;
+    public String Major;
 
-    public Book(String IDBook, String nameBook, String author, String major) {
-        this.ID_Book = IDBook;
-        this.Name_Book = nameBook;
-        this._Author = author;
-        this._Major = major;
-    }
-
-    public String getID_Book() {
-        return ID_Book;
-    }
-
-    public String getName_Book() {
-        return Name_Book;
-    }
-
-    public String get_Author() {
-        return _Author;
-    }
-
-    public String get_Major() {
-        return _Major;
-    }
-
-    public void setName_Book(String nameBook) {
-        this.Name_Book = nameBook;
-    }
-
-    public void set_Author(String author) {
-        this._Author = author;
-    }
-
-    public void set_Major(String major) {
-        this._Major = major;
-    }
+    public Book(String ID, String name, String author, String major) {
+        this.ID = ID;
+        this.Name = name;
+        this.Author = author;
+        this.Major = major;
+    }  
 }
     
