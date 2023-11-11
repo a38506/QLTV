@@ -23,6 +23,7 @@ public class ManagementController {
         _managementService = managementService;
     }
 
+    //mượn sách
     @PostMapping()
     public void BorrowBook(String studentId, String bookId) {
         var book = _bookService.searchBooksByID(bookId);
@@ -41,6 +42,7 @@ public class ManagementController {
         _managementService.addManagement(bookId, book.get(0).getName_Book(), studentId, student.get(0).getName_Student());
     }
 
+    //liet ke sách theo id sv
     @GetMapping("/{studentId}")
     public List<Book> getAllBooksByStudentId(@PathVariable("studentId") String studentId) {
         var managements = _managementService.getManagementsByStudentID(studentId);
@@ -49,5 +51,41 @@ public class ManagementController {
             result.add(_bookService.searchBooksByID(management.getManagerIDBook()).get(0));
         }
         return result;
+    }
+
+    //trả sách
+    @DeleteMapping("/{studentId}/{bookId}")
+    public void returnBook(@PathVariable String studentId, @PathVariable String bookId) {
+        _managementService.returnBook(bookId, studentId);
+    }
+
+    //tổng sách sv mượn
+    @GetMapping("/total-borrowed/{studentId}")
+    public int getTotalBorrowedBooks(@PathVariable("studentId") String studentId) {
+        var managements = _managementService.getManagementsByStudentID(studentId);
+        return managements.size();       
+    }
+
+    //tổng sách trg kho
+    @GetMapping("/total- in stock/{studentId}")
+    public int getTotalBooksInStock(@PathVariable("studentId") String studentId) {
+
+        List<Book> allBooks = _bookService.getAllBooks();
+
+        List<Book> borrowedBooks = new ArrayList<>();
+        var managements = _managementService.getManagementsByStudentID(studentId);
+        for (var management : managements) {
+            borrowedBooks.add(_bookService.searchBooksByID(management.getManagerIDBook()).get(0));
+        }
+
+        int totalBooksInStock = allBooks.size() - borrowedBooks.size();
+
+        return totalBooksInStock;
+}
+
+    //xóa người dùng theo dòng
+    @DeleteMapping("/delete/{studentId}/{bookId}")
+    public void deleteManagement(@PathVariable String studentId, @PathVariable String bookId) {
+        _managementService.removeManagement(bookId, studentId);
     }
 }

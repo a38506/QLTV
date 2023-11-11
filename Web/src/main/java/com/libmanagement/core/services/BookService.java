@@ -6,8 +6,6 @@ import java.util.UUID;
 import com.libmanagement.core.models.Book;
 import com.libmanagement.db.DataStore;
 
-//trực tiếp data
-//nạp ngược lại datta
 public class BookService {
 
     public void addBook(String nameBook, String author, String major) {
@@ -32,6 +30,18 @@ public class BookService {
 
     public List<Book> getAllBooks() {
         return DataStore.books;
+    }
+
+    public void updateBook(String IDBook, String nameBook, String author, String major) {
+        for (Book book : DataStore.books) {
+            if (book.getID_Book().equals(IDBook)) {
+                book.setName_Book(nameBook);
+                book.set_Author(author);
+                book.set_Major(major);
+                return; 
+            }
+        }
+        throw new RuntimeException("Book with ID " + IDBook + " not found for update");
     }
 
     private String generateID() {

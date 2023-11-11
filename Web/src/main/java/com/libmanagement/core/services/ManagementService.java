@@ -39,5 +39,16 @@ public class ManagementService {
     public void removeManagement(String bookID, String studentID) {
         DataStore.managements.removeIf(management ->management.getManagerIDBook().equals(bookID) && management.getManagerIDStudent().equals(studentID));
     }
+
+    //trả sách
+    public void returnBook(String bookId, String studentId) {
+        for (Management management : DataStore.managements) {
+            if (management.getManagerIDBook().equals(bookId) && management.getManagerIDStudent().equals(studentId)) {
+                DataStore.managements.remove(management);
+                return;
+            }
+        }
+        throw new RuntimeException("Book with ID " + bookId + " not found for student with ID " + studentId);
+    }
 }
 

@@ -29,5 +29,17 @@ public class Book {
     public String get_Major() {
         return _Major;
     }
+
+    public void setName_Book(String nameBook) {
+        this.Name_Book = nameBook;
+    }
+
+    public void set_Author(String author) {
+        this._Author = author;
+    }
+
+    public void set_Major(String major) {
+        this._Major = major;
+    }
 }
     

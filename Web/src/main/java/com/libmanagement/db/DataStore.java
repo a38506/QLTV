@@ -28,5 +28,6 @@ public class DataStore{
         new Management("CS111","Giai tich 2", "A1004", "Nguyen Van C"),
         new Management("MA110","Kien truc may tinh", "A1003", "Nguyen Van B")
     );
+
 }
 

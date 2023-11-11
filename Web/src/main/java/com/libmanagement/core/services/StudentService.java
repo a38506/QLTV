@@ -33,6 +33,18 @@ public class StudentService {
         return DataStore.students;
     }
 
+    public void updateStudent(String IDStudent, String nameStudent, String majorStudent, String classStudent) {
+        for (Student student : DataStore.students) {
+            if (student.getID_Student().equals(IDStudent)) {
+                student.setName_Student(nameStudent);
+                student.setMajor_Student(majorStudent);
+                student.setClass_Student(classStudent);
+                return; 
+            }
+        }
+        throw new RuntimeException("Student with ID " + IDStudent + " not found for update");
+    }
+
     private String generateID() {
         return UUID.randomUUID().toString();
     }
