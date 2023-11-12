@@ -1,26 +1,26 @@
 package com.libmanagement.web.controllers;
 
 import com.libmanagement.core.models.Book;
-import com.libmanagement.core.services.BookService;
 import com.libmanagement.core.models.BookTransaction;
+import com.libmanagement.core.services.BookService;
 import com.libmanagement.core.services.BookTransactionService;
 import com.libmanagement.core.services.StudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-import org.yaml.snakeyaml.events.Event.ID;
+
 
 import java.util.*;
 
 @RestController
 @RequestMapping("/api/management") // decorator
-public class BookTransaction {
+public class BookTransactionController {
     private final BookService _bookService;
     private final StudentService _studentService;
     private final BookTransactionService _bookTransactionService;
 
 
-    public BookTransaction(BookService bookService, StudentService studentService, BookTransactionService bookTransactionService) {
+    public BookTransactionController(BookService bookService, StudentService studentService, BookTransactionService bookTransactionService) {
         _bookService = bookService;
         _studentService = studentService;
         _bookTransactionService = bookTransactionService;
@@ -41,8 +41,7 @@ public class BookTransaction {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "Student Not Found");
         }
-
-        _bookTransactionService.add(new BookTransaction(bookId, studentId));
+        _bookTransactionService.add(new BookTransaction("",bookId, studentId));
     }
 
 
@@ -51,34 +50,53 @@ public class BookTransaction {
         var bookTransactions = _bookTransactionService.getByStudentId(studentId);
         List<Book> result = new ArrayList<>();
         for (var bookTransaction: bookTransactions) {
-            result.add(_bookService.getById(ID).get(0));
+            result.add(_bookService.getById(bookTransaction.bookId));
         }
         return result;
     }
 
 
-    @DeleteMapping("/{studentId}/{bookId}")
-    public void returnBook(@PathVariable String studentId, @PathVariable String bookId) {
-        _bookTransactionService.remove(bookId, studentId);
+    @DeleteMapping("/return/{Id}")
+    public void returnBook(@PathVariable String Id) {
+        _bookTransactionService.returnBook(Id);
     }
 
 
-    @GetMapping("/total-borrowed/{studentId}")
+    @GetMapping("/total/borrowed/{studentId}")
     public int getTotalBorrowedBooks(@PathVariable("studentId") String studentId) {
         var bookTransactions = _bookTransactionService.getByStudentId(studentId);
         return bookTransactions.size();       
     }
 
+    @GetMapping("/total/borrowed/")
+    //booktran
+    public int getTotalBorrowedBooks() {
+        var bookTransactions = _bookTransactionService.getAll();
+        return bookTransactions.size();    
+        //retuen booktra.returnTBookR;   
+    }
+//3
+//fifet enđate ==null ->>dem 
 
-    @GetMapping("/total- in stock/{studentId}")
-    public int getTotalBooksInStock(@PathVariable("studentId") String studentId) {
-
+    @GetMapping("/total")
+    //bookser
+    public int getTotalBooks() {
+        int totalBooks = 0;
         List<Book> allBooks = _bookService.getAll();
-        List<BookTransaction> allTransactions = _bookTransactionService.getAll();
+        for(Book book: allBooks){
+            totalBooks += book.Quantity; 
+        }
 
-        int totalBorrowedBooks = allTransactions.size();
-        int totalBooksInStock = allBooks.size() - totalBorrowedBooks;
-
-        return totalBooksInStock;
+        return totalBooks;
 }}
+//4
+//xoa r -> k dem
 
+//5
+//test 1 file 
+//tester import ser  
+
+//6
+//chuyen total ->ser
+
+//dataS lấy lên

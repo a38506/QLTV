@@ -32,12 +32,23 @@ public class BookController {
 
     @PostMapping()
     public void addNewBook(Book book) {
-        _bookService.add(book);
+        try {    
+            _bookService.add(book);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
     }
 
-    @DeleteMapping()
-    public void removeBook(Book book){
-        _bookService.remove(book.ID);
+//1
+//xóa nhuwg vẫn truy vấn đc thoog tin đó 
+
+//2
+//sách, sv(+sv tn)
+//check lại all logic còn lại 
+
+    @DeleteMapping("/remove/{Id}") 
+    public void removeBook(@PathVariable String Id){
+        _bookService.remove(Id);
     }
 
     @PutMapping("/{bookId}")

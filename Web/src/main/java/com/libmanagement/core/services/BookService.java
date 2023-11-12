@@ -17,11 +17,14 @@ public class BookService {
         if (Utils.isNullOrEmpty(bookToAdd.Name)){
             throw new RuntimeException("Name Should Not Be Empty.");
         }
-
+        
         Book res = getById(bookToAdd.ID);
         if (res != null){
-            throw new RuntimeException(MessageFormat.format ("The book with Id {0} has already existed.",bookToAdd.ID));
+            //throw new RuntimeException(MessageFormat.format ("The book with Id {0} has already existed.",bookToAdd.ID));
+            res.Quantity += 1;
+            return;
         }
+        bookToAdd.Quantity = 1;
         DataStore.books.add(bookToAdd);    
     }
 

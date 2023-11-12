@@ -4,6 +4,8 @@ import com.libmanagement.core.models.BookTransaction;
 import com.libmanagement.db.DataStore;
 import com.libmanagement.utility.Utils;
 
+import java.text.MessageFormat;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class BookTransactionService {
@@ -12,16 +14,16 @@ public class BookTransactionService {
         return DataStore.bookTransactions;
     }
 
-    public BookTransaction getByStudentId(String studentId) {                                                                  
-        BookTransaction res = DataStore.bookTransactions.stream().filter(
-                booktransaction -> booktransaction.studentId.equals(studentId)).findFirst().orElse(null);
-        return  res;
+    public List<BookTransaction> getByStudentId(String studentId) {                                                                  
+        List <BookTransaction>  res = DataStore.bookTransactions.stream().filter(
+                booktransaction -> booktransaction.studentId.equals(studentId)).toList();
+                return res;
     }
 
 
-    public BookTransaction getByBookId(String bookId) {                                                                  
-        BookTransaction res = DataStore.bookTransactions.stream().filter(
-                booktransaction -> booktransaction.bookId.equals(bookId)).findFirst().orElse(null);
+    public List<BookTransaction> getByBookId(String bookId) {                                                                  
+        List<BookTransaction> res = DataStore.bookTransactions.stream().filter(
+                booktransaction -> booktransaction.bookId.equals(bookId)).toList();
         return  res;
     }
 
@@ -34,15 +36,29 @@ public class BookTransactionService {
         if (Utils.isNullOrEmpty(borrowBook.studentId)){
             throw new RuntimeException("Studenr With Id Should Not Be Empty.");
         }
-
+        borrowBook.Id = Utils.generateID();
         DataStore.bookTransactions.add(borrowBook);
     }
        
     
 
-    public void remove(String bookID, String studentID) {
-        DataStore.bookTransactions.removeIf(bookTransaction ->bookTransaction.bookId.equals(bookID) && bookTransaction.studentId.equals(studentID));
+    public void returnBook(String Id) {
+        // kiếm lại cái tran có id nhận và set endate cho tran đó
+        // trc khi set endate có null ?
+        // k null ->lỗi
+        BookTransaction res = DataStore.bookTransactions.stream().filter(bookTransaction -> bookTransaction.Id.equals(Id)).findFirst().orElse(null);
+        if(res == null){
+            throw new RuntimeException(MessageFormat.format ("Transaction with Id {0} not found",Id));
+        }
+
+        if (res.end != null) {
+            throw new RuntimeException("This book has already been returned");
+        }
+        
+        res.end = LocalDateTime.now();                                                     
     }
+
+
 }
 
 
