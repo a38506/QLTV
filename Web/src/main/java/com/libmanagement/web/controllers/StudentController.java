@@ -1,6 +1,7 @@
 package com.libmanagement.web.controllers;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,14 +16,20 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.libmanagement.core.models.Student;
 import com.libmanagement.core.services.StudentService;
+import com.libmanagement.db.DataStore;
 
 @RestController
-@RequestMapping("/api/student") // decorator
+@RequestMapping("/api/student")
 public class StudentController {
     private final StudentService _studentService ;
 
     StudentController(StudentService studentService){
         _studentService = studentService;
+    }
+
+    @GetMapping()
+    public List<Student> getAll() {
+        return DataStore.students.stream().filter(student-> !student.Deleted).collect (Collectors.toList( ));
     }
 
     @GetMapping()
@@ -35,25 +42,21 @@ public class StudentController {
         _studentService.add(student);
     }
 
-    @DeleteMapping()
-    public void removeStudent(Student student){
-        _studentService.remove(student.ID);
-    }    
+    @DeleteMapping("/remove/{Id}")
+        public void remove(@PathVariable String Id) {
+            try {    
+                _studentService.removeById(Id);
+            } catch (Exception e) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+            }
+        }   
 
     @PutMapping("/{studentId}")
     public void update(@PathVariable String studentId, @RequestBody Student studentToUpdate) {
-        Student res = _studentService.getById(studentId);
-        if (res == null){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Student Not Found");
- //           throw new RuntimeException(MessageFormat.format ("Book With Id is {0} Not Found",bookToUpdate.ID));
+        try {
+            _studentService.update(studentToUpdate);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
-
-        res.Name = studentToUpdate.Name;
-        res.Major =studentToUpdate.Major;
-        res.Clan = studentToUpdate.Clan;
-        return;
     }
-
-
-
 }

@@ -9,8 +9,7 @@ public class BookTransaction {
     public LocalDateTime start;
     public LocalDateTime end;
 
-    public BookTransaction(String Id , String bookId, String studentId,  
-                                LocalDateTime start , LocalDateTime end ) {
+    public BookTransaction(String Id , String bookId, String studentId,  LocalDateTime start , LocalDateTime end ) {
         this.Id = Id;
         this.bookId = bookId;
         this.studentId = studentId;
@@ -18,8 +17,7 @@ public class BookTransaction {
         this.end = end;   
     }
 
-    public BookTransaction(String Id , String bookId, String studentId,  
-                                LocalDateTime start ) {
+    public BookTransaction(String Id , String bookId, String studentId, LocalDateTime start ) {
         this.Id = Id;
         this.bookId = bookId;
         this.studentId = studentId;

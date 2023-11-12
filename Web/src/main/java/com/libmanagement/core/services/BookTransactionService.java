@@ -43,9 +43,6 @@ public class BookTransactionService {
     
 
     public void returnBook(String Id) {
-        // kiếm lại cái tran có id nhận và set endate cho tran đó
-        // trc khi set endate có null ?
-        // k null ->lỗi
         BookTransaction res = DataStore.bookTransactions.stream().filter(bookTransaction -> bookTransaction.Id.equals(Id)).findFirst().orElse(null);
         if(res == null){
             throw new RuntimeException(MessageFormat.format ("Transaction with Id {0} not found",Id));
@@ -54,7 +51,6 @@ public class BookTransactionService {
         if (res.end != null) {
             throw new RuntimeException("This book has already been returned");
         }
-        
         res.end = LocalDateTime.now();                                                     
     }
 

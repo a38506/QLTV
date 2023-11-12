@@ -10,7 +10,7 @@ import com.libmanagement.utility.Utils;
 public class StudentService {
 
     public void add(Student studentToAdd) {
-        if (Utils.isNullOrEmpty(studentToAdd.ID)){
+        if (Utils.isNullOrEmpty(studentToAdd.Id)){
             throw new RuntimeException("Id Should Not Be Empty.");
         }
 
@@ -18,21 +18,25 @@ public class StudentService {
             throw new RuntimeException("Name Should Not Be Empty.");
         }
 
-        Student res = getById(studentToAdd.ID);
+        Student res = getById(studentToAdd.Id);
         if (res != null){
-            throw new RuntimeException(MessageFormat.format ("The stuent with Id {0} has already existed.",studentToAdd.ID));
+            throw new RuntimeException(MessageFormat.format ("The stuent with Id {0} has already existed.",studentToAdd.Id));
         }
         DataStore.students.add(studentToAdd);
     }
 
     
-    public void remove(String ID) {
-        DataStore.students.removeIf(student -> student.ID.equals(ID));
+    public void removeById(String Id) {
+        Student studentToRemove = getById(Id);
+        if (studentToRemove != null) {
+            studentToRemove.Deleted = true;
+        } else {
+            throw new RuntimeException(MessageFormat.format("Student With Id Not Found",Id));
+        }
     }
 
-
-    public  Student getById(String ID) {                                                                  
-        Student res = DataStore.students.stream().filter(student -> student.ID.equals(ID)).findFirst().orElse(null);
+    public  Student getById(String Id) {                                                                  
+        Student res = DataStore.students.stream().filter(student -> student.Id.equals(Id)).findFirst().orElse(null);
         return  res;
     }
 
@@ -43,9 +47,9 @@ public class StudentService {
 
 
     public void update(Student studentToUpdate) {
-        Student res = getById(studentToUpdate.ID);
+        Student res = getById(studentToUpdate.Id);
         if (res == null){
-            throw new RuntimeException(MessageFormat.format ("Student With Id is {0} Not Found",studentToUpdate.ID));
+            throw new RuntimeException(MessageFormat.format ("Student With Id is {0} Not Found",studentToUpdate.Id));
         }
 
         res.Name = studentToUpdate.Name;
