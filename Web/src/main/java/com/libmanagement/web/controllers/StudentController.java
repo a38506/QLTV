@@ -39,7 +39,11 @@ public class StudentController {
 
     @PostMapping()
     public void addNewStudent(Student student){
+        try {
         _studentService.add(student);
+        }catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
     }
 
     @DeleteMapping("/remove/{Id}")
@@ -47,7 +51,7 @@ public class StudentController {
             try {    
                 _studentService.removeById(Id);
             } catch (Exception e) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
             }
         }   
 

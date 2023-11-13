@@ -55,7 +55,7 @@ public class BookController {
             try {    
                 _bookService.removeById(Id);
             } catch (Exception e) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
             }
         }
     
@@ -68,6 +68,11 @@ public class BookController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
+
+    // @DeleteMapping("/remove/{Id}") 
+    // public void removeBook(@PathVariable String Id){
+    //     _bookService.remove(Id);
+    // }
 }
 
 
@@ -78,12 +83,8 @@ public class BookController {
 //sách, sv(+sv tn)
 //check lại all logic còn lại 
 
-//------------------------------------------------------
 
-    // @DeleteMapping("/remove/{Id}") 
-    // public void removeBook(@PathVariable String Id){
-    //     _bookService.remove(Id);
-    // }
+
 
     
     

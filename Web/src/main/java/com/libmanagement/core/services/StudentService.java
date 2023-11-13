@@ -29,9 +29,13 @@ public class StudentService {
     public void removeById(String Id) {
         Student studentToRemove = getById(Id);
         if (studentToRemove != null) {
-            studentToRemove.Deleted = true;
+            if (!studentToRemove.Deleted) {
+                studentToRemove.Deleted = true;
+            } else {
+                throw new RuntimeException(MessageFormat.format("Student with Id {0} is already deleted", Id));
+            }
         } else {
-            throw new RuntimeException(MessageFormat.format("Student With Id Not Found",Id));
+            throw new RuntimeException(MessageFormat.format("Student with Id {0} not found", Id));
         }
     }
 
@@ -51,10 +55,15 @@ public class StudentService {
         if (res == null){
             throw new RuntimeException(MessageFormat.format ("Student With Id is {0} Not Found",studentToUpdate.Id));
         }
-
         res.Name = studentToUpdate.Name;
         res.Clan = studentToUpdate.Clan;
         res.Major = studentToUpdate.Major;
         return;         
     }
+
+    public boolean isDeleted(String studentId) {
+        Student student = getById(studentId);
+        return student != null && student.Deleted;
+    }
 }
+

@@ -28,12 +28,37 @@ public class BookService {
         DataStore.books.add(bookToAdd);    
     }
 
-    public void removeById(String bookId) {
-        Book bookToRemove = getById(bookId);
+    // public void add(List<Book> bookToAdd) {
+    //     for (Book book : bookToAdd) {
+    //         if (Utils.isNullOrEmpty(book.Id)) {
+    //             throw new RuntimeException("Id Should Not Be Empty.");
+    //         }
+    
+    //         if (Utils.isNullOrEmpty(book.Name)) {
+    //             throw new RuntimeException("Name Should Not Be Empty.");
+    //         }
+    
+    //         Book res = getById(book.Id);
+    //         if (res != null) {
+    //             res.Quantity += 1;
+    //         } else {
+    //             book.Quantity = 1;
+    //             DataStore.books.add(book);
+    //         }
+    //     }
+    // }
+    
+
+    public void removeById(String Id) {
+        Book bookToRemove = getById(Id);
         if (bookToRemove != null) {
-            bookToRemove.Deleted = true;
+            if (!bookToRemove.Deleted) {
+                bookToRemove.Deleted = true;
+            } else {
+                throw new RuntimeException(MessageFormat.format("Book with Id {0} is already deleted", Id));
+            }
         } else {
-            throw new RuntimeException(MessageFormat.format ("Book With Id Not Found",bookId));
+            throw new RuntimeException(MessageFormat.format("Book with Id {0} not found", Id));
         }
     }
     
@@ -59,12 +84,22 @@ public class BookService {
         if (res == null){
             throw new RuntimeException(MessageFormat.format ("Book With Id is {0} Not Found",bookToUpdate.Id));
         }
-
         res.Name = bookToUpdate.Name;
         res.Author =bookToUpdate.Author;
         res.Major = bookToUpdate.Major;
-        return; 
-             
+        return;         
+    }
+
+    //tổng sách không lấy sách xóa
+    public int getTotalBooks() {
+        int totalBooks = 0;
+        List<Book> allBooks = getAll();
+        for(Book book: allBooks){
+            if ( !book.Deleted) {
+                totalBooks += book.Quantity;
+            } 
+        }
+        return totalBooks;
     }
 }
 
