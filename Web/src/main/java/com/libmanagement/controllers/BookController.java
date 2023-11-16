@@ -1,9 +1,10 @@
-package com.libmanagement.web.controllers;
+package com.libmanagement.controllers;
 
 import com.libmanagement.core.models.Book;
 import com.libmanagement.core.services.BookService;
 import com.libmanagement.db.DataStore;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,18 +24,20 @@ import java.util.stream.Collectors;
 public class BookController {
     // Spring Boot
     private final BookService _bookService;
+
+    @Autowired
     BookController(BookService bookService) {
         _bookService = bookService;
     }
 
     //Lấy tât cả bao gồm  sách  đã bị xóa
-    @GetMapping()
-    public List<Book> getAllBooks() {
-        return _bookService.getAll();
-    }
+//    @GetMapping
+//    public List<Book> getAllBooks() {
+//        return _bookService.getAll();
+//    }
 
     //Lấy tất cả không bao gồm sách bị xóa
-    @GetMapping()
+    @GetMapping
     public List<Book> getAll() {
         return DataStore.books.stream().filter(book-> !book.Deleted).collect (Collectors.toList( ));
     }

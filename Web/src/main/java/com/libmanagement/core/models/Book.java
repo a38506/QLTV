@@ -1,5 +1,6 @@
 package com.libmanagement.core.models;
 
+
 public class Book {
     public String Id;
     public String Name;

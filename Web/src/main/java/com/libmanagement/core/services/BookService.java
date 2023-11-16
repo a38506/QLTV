@@ -7,7 +7,10 @@ import java.util.List;
 import com.libmanagement.core.models.Book;
 import com.libmanagement.db.DataStore;
 import com.libmanagement.utility.Utils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class BookService {
 
     public void add(Book bookToAdd){

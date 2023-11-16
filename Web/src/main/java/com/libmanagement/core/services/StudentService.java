@@ -6,7 +6,9 @@ import java.util.List;
 import com.libmanagement.core.models.Student;
 import com.libmanagement.db.DataStore;
 import com.libmanagement.utility.Utils;
+import org.springframework.stereotype.Service;
 
+@Service
 public class StudentService {
 
     public void add(Student studentToAdd) {

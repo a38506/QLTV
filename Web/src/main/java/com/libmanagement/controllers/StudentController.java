@@ -1,8 +1,9 @@
-package com.libmanagement.web.controllers;
+package com.libmanagement.controllers;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,14 +24,15 @@ import com.libmanagement.db.DataStore;
 public class StudentController {
     private final StudentService _studentService ;
 
+    @Autowired
     StudentController(StudentService studentService){
         _studentService = studentService;
     }
 
-    @GetMapping()
-    public List<Student> getAll() {
-        return DataStore.students.stream().filter(student-> !student.Deleted).collect (Collectors.toList( ));
-    }
+//    @GetMapping()
+//    public List<Student> getAll() {
+//        return DataStore.students.stream().filter(student-> !student.Deleted).collect (Collectors.toList( ));
+//    }
 
     @GetMapping()
     public List<Student> getAllStudents(){
