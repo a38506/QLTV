@@ -3,11 +3,13 @@ package com.libmanagement.core.services;
 import com.libmanagement.core.models.BookTransaction;
 import com.libmanagement.db.DataStore;
 import com.libmanagement.utility.Utils;
+import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Service
 public class BookTransactionService {
 
     public List<BookTransaction> getAll() {

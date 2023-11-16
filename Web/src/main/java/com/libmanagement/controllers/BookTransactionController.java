@@ -1,10 +1,11 @@
-package com.libmanagement.web.controllers;
+package com.libmanagement.controllers;
 
 import com.libmanagement.core.models.Book;
 import com.libmanagement.core.models.BookTransaction;
 import com.libmanagement.core.services.BookService;
 import com.libmanagement.core.services.BookTransactionService;
 import com.libmanagement.core.services.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -19,7 +20,7 @@ public class BookTransactionController {
     private final StudentService _studentService;
     private final BookTransactionService _bookTransactionService;
 
-
+    @Autowired
     public BookTransactionController(BookService bookService, StudentService studentService, BookTransactionService bookTransactionService) {
         _bookService = bookService;
         _studentService = studentService;

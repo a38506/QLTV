@@ -1,6 +1,7 @@
 package com.libmanagement.core.models;
 
-public class Student {  
+
+public class Student {
     public String Id;
     public String Name;
     public String Major;

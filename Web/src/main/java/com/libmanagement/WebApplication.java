@@ -1,4 +1,4 @@
-package com.libmanagement.web;
+package com.libmanagement;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
