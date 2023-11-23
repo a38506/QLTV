@@ -14,7 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.*;
 
 @RestController
-@RequestMapping("/api/book transaction") 
+@RequestMapping("/api/transaction") 
 public class BookTransactionController {
     private final BookService _bookService;
     private final StudentService _studentService;
@@ -27,7 +27,7 @@ public class BookTransactionController {
         _bookTransactionService = bookTransactionService;
     }
 
- 
+
     @PostMapping("/borrow")
     public void BorrowBook(String studentId, String bookId) {
         var book = _bookService.getById(bookId);
@@ -37,14 +37,14 @@ public class BookTransactionController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Book Not Found");
         }
         if (student == null) {
-            throw new ResponseStatusException( HttpStatus.NOT_FOUND, "Student Not Found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Student Not Found");
         }
 
         try {
-            _bookTransactionService.add(new BookTransaction("",bookId, studentId));
+            _bookTransactionService.add(new BookTransaction("", bookId, studentId));
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        }  
+        }
     }
 
 
@@ -52,7 +52,7 @@ public class BookTransactionController {
     public List<Book> getAllBooksByStudentId(@PathVariable("studentId") String studentId) {
         var bookTransactions = _bookTransactionService.getByStudentId(studentId);
         List<Book> result = new ArrayList<>();
-        for (var bookTransaction: bookTransactions) {
+        for (var bookTransaction : bookTransactions) {
             result.add(_bookService.getById(bookTransaction.bookId));
         }
         return result;
@@ -65,15 +65,15 @@ public class BookTransactionController {
             _bookTransactionService.returnBook(Id);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        } 
+        }
     }
 
 
-    @GetMapping("/total/borrowed/")
+    @GetMapping("/total/borrowed")
     public int getTotalBorrowedBooks() {
-        return _bookTransactionService.getTotalBorrowedBooks();     
+        return _bookTransactionService.getTotalBorrowedBooks();
     }
- 
+
 
     @GetMapping("/total")
     public int getTotalBooks() {
@@ -82,31 +82,17 @@ public class BookTransactionController {
 
 
     @GetMapping("/total/borrowed/{studentId}")
-    public List<Book> getTotalBorrowedBooksByStudentId( @PathVariable String studentId) {
-        List<BookTransaction> bookTransactions = _bookTransactionService.getByStudentId (studentId) ;
-    
-        return bookTransactions.stream().filter( bookTransaction -> !_studentService.isDeleted (bookTransaction.Id))
-                        .map(bookTransaction-> _bookService.getById(bookTransaction.Id)).toList();
+    public List<Book> getTotalBorrowedBooksByStudentId(@PathVariable String studentId) {
+        List<BookTransaction> bookTransactions = _bookTransactionService.getByStudentId(studentId);
+
+        return bookTransactions.stream().filter(bookTransaction -> !_studentService.isDeleted(bookTransaction.Id))
+                .map(bookTransaction -> _bookService.getById(bookTransaction.Id)).toList();
     }
-    
-    
-    // @GetMapping("/total/borrowed/{studentId}")
-    // public int getTotalBorrowedBooksByStudentId(String studentId) {
-    //    return _bookTransactionService.getTotalBorrowedBooksByStudentId(studentId);
-    // }
 
+    @GetMapping("/borrowing")
+    public int getTotalBorrowedBooksCount() {
+        return _bookTransactionService.getTotalBorrowingBooksCount();
+
+    }
 }
-
-
-
-//3. filter enddate ==null ->>dem
-
-//4. xoa r -> k dem
-
-//5. test 1 file 
-//tester import ser  
-//dataS lấy lên
-
-//6. chuyen total ->ser
-
 

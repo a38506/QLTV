@@ -65,7 +65,8 @@ public class StudentService {
 
     public boolean isDeleted(String studentId) {
         Student student = getById(studentId);
-        return student != null && student.Deleted;
+        return student==null || (student != null && student.Deleted);
+        
     }
 }
 

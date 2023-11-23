@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 
-class BookTransactionServiceTest {
+class BookTransactionTest {
     @InjectMocks
     private BookTransactionService bookTransactionService;
 
@@ -31,20 +31,14 @@ void testGetByStudentId() {
     BookTransaction result = bookTransactions.get(0);
     String studentIdToSearch = "A1002";
 
-    // Thực hiện gọi phương thức và kiểm tra kết quả
     assertDoesNotThrow(() -> {
         List<BookTransaction> resultTransactions = bookTransactionService.getByStudentId(studentIdToSearch);
         
-        // Kiểm tra xem kết quả có phải là danh sách không null
         assertNotNull(resultTransactions,  "null");
-
-        // Kiểm tra xem có đúng một phần tử trong danh sách hay không
         assertEquals(1, resultTransactions.size(), "True");
 
-        // Lấy giao dịch từ kết quả
         BookTransaction resultTransaction = resultTransactions.get(0);
 
-        // Kiểm tra thông tin giao dịch
         assertEquals(studentIdToSearch, resultTransaction.studentId, "StudentId should match");
     });
 }
@@ -80,7 +74,7 @@ void testGetByStudentId() {
 
         assertDoesNotThrow(() -> bookTransactionService.add(transactionToAdd));
 
-        BookTransaction addTransaction = bookTransactionService.getAll().get(transactions.size());
+        BookTransaction addTransaction = bookTransactionService.getAll().get(transactions.size()-1);
         assertEquals(res.bookId, addTransaction.bookId);
         assertEquals(res.studentId , addTransaction.studentId);
     }

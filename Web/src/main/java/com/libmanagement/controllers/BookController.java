@@ -77,18 +77,3 @@ public class BookController {
     //     _bookService.remove(Id);
     // }
 }
-
-
-//1
-//xóa nhuwg vẫn truy vấn đc thoog tin đó 
-
-//2
-//sách, sv(+sv tn)
-//check lại all logic còn lại 
-
-
-
-
-    
-    
-

@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BookTransactionService {
@@ -62,11 +64,17 @@ public class BookTransactionService {
         return bookTransactions.size();
     }
 
-    // public int getTotalBorrowedBooksByStudentId(String studentId) {
-    //     List<BookTransaction> bookTransactions = getByStudentId(studentId);
-    //     return bookTransactions.size();
-    // }
 
+    public  int getTotalBorrowingBooksCount() {
+        List<BookTransaction> borrowedTransactions = new ArrayList<>();
+        for (BookTransaction transaction : DataStore.bookTransactions) {
+            if (transaction.end == null) {
+                borrowedTransactions.add(transaction);
+            }
+        }
+
+        return borrowedTransactions.size();
+    }
 
 }
 
