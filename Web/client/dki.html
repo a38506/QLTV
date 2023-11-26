@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- <title>Đăng ký và Đăng nhập</title> -->
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 350px;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            border-top: 1px solid #ddd;
+            border-left: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+        }
+        th {
+            background-color: 3px #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <script></script>
+    <h1>Đăng ký</h1>
+    <table>
+        <tr>
+            <th><label for="username">Tên người dùng:</label></th>
+            <td><input type="text" id="username" name="username" required></td>
+        </tr>
+        <tr>
+            <th><label for="password.1">Mật khẩu:</label></th>
+            <td><input type="password.1" id="password.1" name="password.1" required></td>
+        </tr>
+        <tr>
+            <th><label for="password.2">Nhập lại mật khẩu:</label></th>
+            <td><input type="password.2" id="password.2" name="password.2" required></td>
+        </tr>
+
+    </table>
+    <button class="button" onclick="Trang_chủ()">Đăng kí</button>
+
+    <h1>Đăng nhập</h1>
+    <table>
+        <tr>
+            <th><label for="login-username">Tên người dùng:</label></th>
+            <td><input type="text" id="login-username" name="login-username" required></td>
+        </tr>
+        <tr>
+            <th><label for="login-password">Mật khẩu:</label></th>
+            <td><input type="password" id="login-password" name="login-password" required></td>
+        </tr>
+    </table>
+    <button class="button" onclick="Trang_chủ()">Đăng nhập</button>
+</body>
+
+<script>
+    function Trang_chủ(){
+        window.location.href = "Trang_chủ.html";
+    }
+</script>
+</html>

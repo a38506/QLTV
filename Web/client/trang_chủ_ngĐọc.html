@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quản lý tài khoản</title>      
+</head>
+<style>
+    body {
+        padding: 8px;
+        text-align: center;
+    }
+    .container{
+        padding: 8px;
+        text-align: left;
+    }
+    table {
+        width: 100%;
+        margin-top: 20px;
+        text-align: left;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+    th {
+        background: #333;
+        color: #fff;
+    }
+    .tab {
+        padding: 8px;
+        background: #34a3e4;
+        color: #fff;
+    }     
+</style>
+<body>
+    <header><h1>Quản lý tài khoản</h1></header>
+
+    <div class="container">
+        <a class="tab" onclick="showBooks()">Quản lý sách</a>
+        <a class="tab" onclick="showStudents()">Thông tin người dùng</a>
+        <a class="tab" onclick="signInBook()">Đăng kí mượn sách</a>
+
+        <!--quản lí sách -->
+        <div class="content" id="bookContent" style="display: none;">
+            <h2>Quản lý sách</h2>
+            <form>
+                <label for="IDBook">Tìm kiếm:</label>
+                <input type="text" id="IDBook" name="IDBook"><br><br>
+                <button type="submit">Tìm kiếm</button>
+            </form> 
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã Sách</th>
+                        <th>Tên Sách</th>
+                        <th>Tác Giả</th>
+                        <th>Chuyên ngành</th>
+                        <th>Ngày mượn</th>
+                        <th>Trạng thái</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+
+        <!--quản lí người đọc -->
+        <div class="content" id="studentContent" style="display: none;">
+            <h2>Thông tin người dùng</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã Người Đọc</th>
+                        <th>Tên Người Đọc</th>
+                        <th>Lớp</th>
+                        <th>Chuyên ngành</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        
+        <!-- đăng kí mượn sách -->
+        <div class="content" id="signInBookContent" style="display: none;">
+            <h2>Đăng kí mượn sách</h2>
+            <form>
+                <label for="IDBook">Tìm kiếm:</label>
+                <input type="text" id="IDBook" name="IDBook"><br><br>
+                <button type="submit">Tìm kiếm</button>
+            </form> 
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã sách</th>
+                        <th>Tên Sách</th>
+                        <th>Tác giả</th>
+                        <th>Chuyên ngành</th>
+                    </tr>
+                </thead>
+            </table>
+            <br><button type="submit">Mượn</button>
+        </div>
+
+       
+    </div>
+
+    <script>
+        function showBooks() {
+            var bookContent = document.getElementById("bookContent");
+            bookContent.style.display = "block";
+            studentContent.style.display = "none"; 
+            signInBookContent.style.display = "none";
+        }
+
+        function showStudents() {
+            var studentContent = document.getElementById("studentContent");
+            studentContent.style.display = "block";
+            bookContent.style.display = "none";
+            signInBookContent.style.display = "none";
+        }
+
+        function signInBook() {
+            var signInBookContent = document.getElementById("signInBookContent");
+            signInBookContent.style.display = "block"; 
+            bookContent.style.display = "none";
+            studentContent.style.display = "none";
+        }
+
+        // function addBook() {
+        //     window.location.href = "add_book.html";
+        // }
+
+        // function deleteBook(){
+        //     window.location.href = "delete_book.html";
+        // }
+    </script>
+</body>
+</html>

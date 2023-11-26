@@ -13,6 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/transaction") 
 public class BookTransactionController {
@@ -26,6 +27,11 @@ public class BookTransactionController {
         _studentService = studentService;
         _bookTransactionService = bookTransactionService;
     }
+
+    @GetMapping()
+        public List<BookTransaction> getAllTransactions(){
+            return _bookTransactionService.getAll();
+        }
 
 
     @PostMapping("/borrow")

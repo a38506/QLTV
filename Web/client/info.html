@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<title>Tra cứu thông tin sách</title>
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #dddddd;
+    }
+</style>
+ 
+<body>
+    <form>
+        <label for="IDBook">ID sách:</label>
+        <input type="text" id="IDBook" name="IDBook"><br><br>
+
+        <label for="NameBook">Tên sách:</label>
+        <input type="text" id="NameBook" name="NameBook"><br><br>
+
+        <label for="author">Tác giả:</label>
+        <input type="text" id="author" name="author"><br><br>
+
+        <label for="major">Chuyên ngành:</label>
+        <input type="text" id="major" name="major"><br><br>
+        
+        <button type="submit">Tìm kiếm</button>  
+    </form>
+    
+</body>
+    <table>
+        <br>
+        <tr>
+            <th>ID sách</th>
+            <th>Tên sách</th>
+            <th>Tác giả</th>
+            <th>Chuyên ngành</th>
+            <th>Số lượng</th>
+        </tr>
+        <tr>
+            <td>CS111</td>
+            <td>Lập trình hướng đối tượng</td>
+            <td>John</td>
+            <td>Toán-Tin</td>
+            <td>200</td>
+        </tr>
+        <tr>
+            <td>CS112</td>
+            <td>Ngôn ngữ lập trình</td>
+            <td>David</td>
+            <td>Toán-Tin</td>
+            <td>50</td>
+        </tr>
+        <tr>
+            <td>CS113</td>
+            <td>Lập trình.Net</td>
+            <td>Thomas</td>
+            <td>Trí tuệ nhân tạo</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Dòng 4, Cột 1</td>
+            <td>Dòng 4, Cột 2</td>
+            <td>Dòng 4, Cột 3</td>
+            <td>Dòng 4, Cột 4</td>
+            <td>Dòng 4, Cột 5</td>
+        </tr>
+        <tr>
+            <td>Dòng 5, Cột 1</td>
+            <td>Dòng 5, Cột 2</td>
+            <td>Dòng 5, Cột 3</td>
+            <td>Dòng 5, Cột 4</td>
+            <td>Dòng 5, Cột 5</td>
+        </tr>
+        
+    </table>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quản lý thư viện</title>      
+</head>
+<style>
+body {
+    padding: 20px;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+}
+
+.container {
+    padding: 20px;
+    text-align: left;
+}
+
+table {
+    width: 100%;
+    margin-top: 20px;
+    text-align: left;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #000;
+    padding: 12px;
+    text-align: left;
+    color: #000;
+}
+
+th {
+    background-color: #fff;
+}
+
+.tab {
+    padding: 12px;
+    background-color: #34a3e4;
+    color: #fff;
+}
+
+   
+</style>
+<body>
+    <header><h1>Quản lý thư viện</h1></header>
+    <div class="container">
+        <a class="tab" onclick="showBooks()">Quản lý sách</a>
+        <a class="tab" onclick="showStudents()">Quản lý người đọc</a>
+        <a class="tab" onclick="showBorrowReturn()">Mượn/Trả sách</a>
+
+        <!--quản lí sách -->
+        <div class="content" id="bookContent"  style="display: none;">
+            <h2>Quản lý sách</h2>
+            <form>
+                <label for="IDBook">Tìm kiếm sách:</label>
+                <input type="int" id="IDBook" name="IDBook"><br><br>
+                <button type="submit">Tìm kiếm</button>
+            </form> 
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã Sách</th>
+                        <th>Tên Sách</th>
+                        <th>Tác Giả</th>
+                        <th>Chuyên Ngành</th>
+                        <th>Số Lượng</th>
+                    </tr>
+                </thead>
+                <tbody id="bookDataContent"></tbody>
+            </table>
+            <button class="button" onclick="addBook()">Thêm sách</button>
+            <button class="button" onclick="deleteBook()">Xóa sách</button>
+        </div>
+
+
+        <!--quản lí người đọc -->
+        <div class="content" id="studentContent" style="display: none;">
+            <h2>Quản lý người đọc</h2>
+            <form>
+                <label for="IDStudent">Tìm kiếm người đọc:</label>
+                <input type="int" id="IDStudent" name="IDStudent"><br><br>
+                <button type="submit">Tìm kiếm</button>
+            </form> 
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã Người Đọc</th>
+                        <th>Tên Người Đọc</th>
+                        <th>Lớp</th>
+                        <th>Chuyên ngành</th>
+                    </tr>
+                </thead>
+                <tbody id="studentDataContent"></tbody>
+            </table>
+        </div>
+        
+
+        <!--mượn trả sách -->
+        <div class="content" id="borrowReturnContent" style="display: none;">
+            <h2>Mượn/Trả sách</h2>
+            <form>
+                <label for="IDBook">Tìm kiếm sách:</label>
+                <input type="int" id="IDBook" name="IDBook"><br><br>
+                <button type="submit">Tìm kiếm sách</button>
+            </form> 
+            <table>
+                <thead>
+                    <tr>
+                        <!-- <th>STT</th> -->
+                        <th>Mã Mượn</th>
+                        <th>Mã Người Đọc</th>
+                        <th>Tên Người Đọc</th>
+                        <th>Tên Sách</th>
+                        <th>Ngày Mượn</th>
+                        <th>Ngày Trả</th>
+                    </tr>
+                </thead>
+                <tbody id="transactionDataContent"></tbody>
+            </table>
+        </div>
+
+    <script>
+        function showBooks() {
+            var bookContent = document.getElementById("bookContent");
+            bookContent.style.display = "block";
+            studentContent.style.display = "none"; 
+            borrowReturnContent.style.display = "none";
+
+            getAllBook();   
+        }
+
+        function showStudents() {
+            var studentContent = document.getElementById("studentContent");
+            studentContent.style.display = "block";
+            bookContent.style.display = "none";
+            borrowReturnContent.style.display = "none";
+
+            getAllStudent();
+        }
+
+        function showBorrowReturn() {
+            var borrowReturnContent = document.getElementById("borrowReturnContent");
+            borrowReturnContent.style.display = "block"; 
+            bookContent.style.display = "none";
+            studentContent.style.display = "none";
+
+            getAllTransaction();
+        }
+
+        function addBook() {
+            window.location.href = "add_book.html";
+        }
+
+        function deleteBook(){
+            window.location.href = "delete_book.html";
+        }
+    </script>
+
+<script src = "./js/fetchData.js"></script>
+
+</body>
+</html>

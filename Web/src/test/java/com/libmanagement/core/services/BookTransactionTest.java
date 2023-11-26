@@ -27,8 +27,8 @@ class BookTransactionTest {
 
    @Test
 void testGetByStudentId() {
-    List<BookTransaction> bookTransactions = DataStore.bookTransactions;
-    BookTransaction result = bookTransactions.get(0);
+    //List<BookTransaction> bookTransactions = DataStore.bookTransactions;
+    //BookTransaction result = bookTransactions.get(0);
     String studentIdToSearch = "A1002";
 
     assertDoesNotThrow(() -> {
