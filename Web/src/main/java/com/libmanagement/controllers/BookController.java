@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController
+@CrossOrigin
 @RequestMapping("/api/book")
 public class BookController {
     // Spring Boot
