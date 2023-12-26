@@ -75,11 +75,11 @@ async function submitForm() {
             body: JSON.stringify(formData)
         });
 
-        if (response.ok) {
-            console.log('Thêm sách thành công');
-        } else {
-            console.error('Lỗi khi thêm sách');
-        }
+        (response.ok) 
+        console.log('Thêm sách thành công');
+        
+
+
     } catch (error) {
         console.error('Lỗi:', error);
     }

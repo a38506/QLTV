@@ -1,8 +1,12 @@
 package com.libmanagement.core.services;
 
+import com.libmanagement.db.repo.BookRepository;
+import com.libmanagement.db.repo.BookTransactionRepository;
 import com.libmanagement.core.models.BookTransaction;
 import com.libmanagement.db.DataStore;
 import com.libmanagement.utility.Utils;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
@@ -12,6 +16,9 @@ import java.util.List;
 
 @Service
 public class BookTransactionService {
+
+    @Autowired   
+    private BookTransactionRepository bookTransactionRepository;
 
     public List<BookTransaction> getAll() {
         return DataStore.bookTransactions;

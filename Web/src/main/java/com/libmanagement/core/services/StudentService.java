@@ -3,13 +3,20 @@ package com.libmanagement.core.services;
 import java.text.MessageFormat;
 import java.util.List;
 
+import com.libmanagement.db.repo.StudentRepository;
+
 import com.libmanagement.core.models.Student;
 import com.libmanagement.db.DataStore;
 import com.libmanagement.utility.Utils;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class StudentService {
+
+    @Autowired   
+    private StudentRepository studentRepository;
 
     public void add(Student studentToAdd) {
         if (Utils.isNullOrEmpty(studentToAdd.Id)){
